@@ -1,7 +1,14 @@
+import { Checkbox } from "@mantine/core";
 import React from "react";
 
 const App = () => {
-  return <div className="App">Quizz</div>;
+  const startQuiz = async () => {};
+
+  return (
+    <div>
+      <div className="App"></div>
+    </div>
+  );
 };
 
-export default App;
+export { App };
