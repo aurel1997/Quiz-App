@@ -1,3 +1,4 @@
+import { Grommet } from "grommet-icons";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
@@ -9,7 +10,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
-    <QuestionCard />
+    <div>
+      <App />
+    </div>
   </React.StrictMode>
 );
