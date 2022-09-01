@@ -52,7 +52,7 @@ const QuestionCard: React.FC<Props> = ({
           <Text margin="medium" alignSelf="center" weight="bold">
             Care este cea mai veche carte din Biblie?
           </Text>
-          <p dangerouslySetInnerHTML={{ __html: question }} />
+          <p />
           <div>
             {answers?.map((answer) => (
               <div>
@@ -67,7 +67,40 @@ const QuestionCard: React.FC<Props> = ({
                   disabled={userAnswer}
                   onClick={callback}
                 />
-                <span dangerouslySetInnerHTML={{ __html: answer }} />
+                <Button
+                  key={answer}
+                  className="button.default.border.color"
+                  fill="horizontal"
+                  label="Alege"
+                  hoverIndicator
+                  type="submit"
+                  margin="small"
+                  disabled={userAnswer}
+                  onClick={callback}
+                />
+                <Button
+                  key={answer}
+                  className="button.default.border.color"
+                  fill="horizontal"
+                  label="Alege"
+                  hoverIndicator
+                  type="submit"
+                  margin="small"
+                  disabled={userAnswer}
+                  onClick={callback}
+                />
+                <Button
+                  key={answer}
+                  className="button.default.border.color"
+                  fill="horizontal"
+                  label="Alege"
+                  hoverIndicator
+                  type="submit"
+                  margin="small"
+                  disabled={userAnswer}
+                  onClick={callback}
+                />
+                <span />
               </div>
             ))}
           </div>
