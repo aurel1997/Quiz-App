@@ -5,9 +5,10 @@ export const supabase = createClient(
   process.env.REACT_APP_SUPABASE_ANON_KEY!
 );
 
-export type Questions = {
+export type Question = {
   id: number;
-  conten: string;
+  content: string;
+  created_at?: string;
 };
 
 export type Answers = {
@@ -17,11 +18,13 @@ export type Answers = {
   is_correct: boolean;
 };
 
-export const postQuestions = async () => {
-  const { data, error } = await supabase.from("questions").select("*");
-
-  console.log(data, error);
-  return data;
+export const getQuestions = async (): Promise<Array<Question>> => {
+  const { data: questions, error } = await supabase
+    .from("questions")
+    .select("*");
+  if (error) throw error;
+  console.log(questions);
+  return questions;
 };
 
 export const postAnswers = async () => {

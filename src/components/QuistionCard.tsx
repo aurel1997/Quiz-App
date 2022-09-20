@@ -7,10 +7,12 @@ import {
   CardHeader,
   Text,
 } from "grommet";
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { getQuestions, Question } from "../API";
 
 type Props = {
-  question: string;
+  question: any;
   answers: string[];
   callback: any;
   userAnswer: any;
@@ -26,6 +28,14 @@ const QuestionCard: React.FC<Props> = ({
   questionNr,
   totalQuestions,
 }) => {
+  const [questions, setQuestions] = useState<Array<Question>>([]);
+  const [number, setNumber] = useState(0);
+  const [userAnswers, setUserAnswers] = useState();
+
+  useEffect(() => {
+    getQuestions().then((content) => setQuestions(content));
+  }, [setQuestions]);
+
   return (
     <div>
       <Box align="center" pad="medium" border="between">
@@ -49,9 +59,12 @@ const QuestionCard: React.FC<Props> = ({
           <p className="number">
             Question: {questionNr} / {totalQuestions}
           </p>
-          <Text margin="medium" alignSelf="center" weight="bold">
-            Care este cea mai veche carte din Biblie?
-          </Text>
+          {questions?.map((question) => (
+            <Text margin="medium" alignSelf="center" weight="bold">
+              {question.content}
+            </Text>
+          ))}
+
           <p />
           <div>
             {answers?.map((answer) => (

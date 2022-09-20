@@ -3,7 +3,7 @@ import "./style.css";
 
 import React, { useState } from "react";
 import { QuestionCard } from "./components/QuistionCard";
-import { postQuestions } from "./API";
+import { getQuestions } from "./API";
 
 const TotalQuestion = 10;
 
@@ -18,22 +18,18 @@ const App = () => {
   const startQuiz = async () => {};
   const checkAnswer = (e: any) => {};
 
-  const nextQuestion = () => {
-    postQuestions();
-  };
-
   return (
     <Grommet>
       <div className="bg">
         <QuestionCard
-          question={questions[number]}
+          question={getQuestions}
           answers={questions[number]}
           callback={checkAnswer}
           userAnswer={userAnswers ? userAnswers[number] : undefined}
           questionNr={number + 1}
           totalQuestions={TotalQuestion}
         />
-        <button onClick={nextQuestion}>Next Question</button>
+        <button onClick={getQuestions}>Next Question</button>
       </div>
     </Grommet>
   );
