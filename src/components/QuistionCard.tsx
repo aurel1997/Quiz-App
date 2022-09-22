@@ -9,7 +9,7 @@ import {
 } from "grommet";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getQuestions, Question } from "../API";
+import { Answers, getAnswers, getQuestions, Question } from "../API";
 
 type Props = {
   question: any;
@@ -30,11 +30,15 @@ const QuestionCard: React.FC<Props> = ({
 }) => {
   const [questions, setQuestions] = useState<Array<Question>>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState();
+  const [userAnswers, setUserAnswers] = useState<Array<Answers>>([]);
 
   useEffect(() => {
     getQuestions().then((content) => setQuestions(content));
   }, [setQuestions]);
+
+  useEffect(() => {
+    getAnswers().then((answer) => setUserAnswers(answer));
+  }, [setUserAnswers]);
 
   return (
     <div>
@@ -57,7 +61,7 @@ const QuestionCard: React.FC<Props> = ({
           background="light-1"
         >
           <p className="number">
-            Question: {questionNr} / {totalQuestions}
+            Întrebarea: {questionNr} / {totalQuestions}
           </p>
           {questions?.map((question) => (
             <Text margin="medium" alignSelf="center" weight="bold">
@@ -67,52 +71,19 @@ const QuestionCard: React.FC<Props> = ({
 
           <p />
           <div>
-            {answers?.map((answer) => (
+            {userAnswers.map((answer) => (
               <div>
                 <Button
-                  key={answer}
                   className="button.default.border.color"
                   fill="horizontal"
-                  label="Alege"
+                  label={answer.answer}
                   hoverIndicator
                   type="submit"
                   margin="small"
                   disabled={userAnswer}
                   onClick={callback}
                 />
-                <Button
-                  key={answer}
-                  className="button.default.border.color"
-                  fill="horizontal"
-                  label="Alege"
-                  hoverIndicator
-                  type="submit"
-                  margin="small"
-                  disabled={userAnswer}
-                  onClick={callback}
-                />
-                <Button
-                  key={answer}
-                  className="button.default.border.color"
-                  fill="horizontal"
-                  label="Alege"
-                  hoverIndicator
-                  type="submit"
-                  margin="small"
-                  disabled={userAnswer}
-                  onClick={callback}
-                />
-                <Button
-                  key={answer}
-                  className="button.default.border.color"
-                  fill="horizontal"
-                  label="Alege"
-                  hoverIndicator
-                  type="submit"
-                  margin="small"
-                  disabled={userAnswer}
-                  onClick={callback}
-                />
+
                 <span />
               </div>
             ))}

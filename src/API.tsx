@@ -27,8 +27,9 @@ export const getQuestions = async (): Promise<Array<Question>> => {
   return questions;
 };
 
-export const postAnswers = async () => {
-  const { data, error } = await supabase.from("answers").select("*");
-
-  return data;
+export const getAnswers = async (): Promise<Array<Answers>> => {
+  const { data: answers, error } = await supabase.from("answers").select("*");
+  if (error) throw error;
+  console.log(answers);
+  return answers;
 };

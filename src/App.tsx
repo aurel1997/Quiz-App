@@ -1,35 +1,35 @@
-import { Box, Grommet, Image } from "grommet";
+import { Box, Button, Grommet, Image } from "grommet";
 import "./style.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { QuestionCard } from "./components/QuistionCard";
-import { getQuestions } from "./API";
+import { Answers, getAnswers, getQuestions, Question } from "./API";
 
 const TotalQuestion = 10;
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Array<Question>>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
-  const [score, setScore] = useState(0);
-  const [gameOver, setGameOver] = useState(true);
+  const [userAnswers, setUserAnswers] = useState<Array<Answers>>([]);
 
-  const startQuiz = async () => {};
-  const checkAnswer = (e: any) => {};
+  useEffect(() => {
+    getQuestions().then((content) => setQuestions(content));
+  }, [setQuestions]);
 
   return (
     <Grommet>
       <div className="bg">
         <QuestionCard
-          question={getQuestions}
-          answers={questions[number]}
-          callback={checkAnswer}
+          question={""}
+          answers={[]}
+          callback={""}
           userAnswer={userAnswers ? userAnswers[number] : undefined}
           questionNr={number + 1}
           totalQuestions={TotalQuestion}
         />
-        <button onClick={getQuestions}>Next Question</button>
+        <Button active={true} onClick={getQuestions}>
+          Next Question
+        </Button>
       </div>
     </Grommet>
   );
