@@ -13,7 +13,7 @@ import { Answers, getAnswers, getQuestions, Question } from "../API";
 
 type Props = {
   question: any;
-  answers: string[];
+
   callback: any;
   userAnswer: any;
   questionNr: number;
@@ -22,22 +22,16 @@ type Props = {
 
 const QuestionCard: React.FC<Props> = ({
   question,
-  answers,
+
   callback,
   userAnswer,
   questionNr,
   totalQuestions,
 }) => {
-  const [questions, setQuestions] = useState<Array<Question>>([]);
-  const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Array<Answers>>([]);
 
   useEffect(() => {
-    getQuestions().then((content) => setQuestions(content));
-  }, [setQuestions]);
-
-  useEffect(() => {
-    getAnswers().then((answer) => setUserAnswers(answer));
+    getAnswers(question.id).then((answer) => setUserAnswers(answer));
   }, [setUserAnswers]);
 
   return (
@@ -63,11 +57,10 @@ const QuestionCard: React.FC<Props> = ({
           <p className="number">
             Întrebarea: {questionNr} / {totalQuestions}
           </p>
-          {questions?.map((question) => (
-            <Text margin="medium" alignSelf="center" weight="bold">
-              {question.content}
-            </Text>
-          ))}
+
+          <Text margin="medium" alignSelf="center" weight="bold">
+            {question?.content}
+          </Text>
 
           <p />
           <div>

@@ -10,7 +10,6 @@ const TotalQuestion = 10;
 const App = () => {
   const [questions, setQuestions] = useState<Array<Question>>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<Array<Answers>>([]);
 
   useEffect(() => {
     getQuestions().then((content) => setQuestions(content));
@@ -19,14 +18,15 @@ const App = () => {
   return (
     <Grommet>
       <div className="bg">
-        <QuestionCard
-          question={""}
-          answers={[]}
-          callback={""}
-          userAnswer={userAnswers ? userAnswers[number] : undefined}
-          questionNr={number + 1}
-          totalQuestions={TotalQuestion}
-        />
+        {questions.length && (
+          <QuestionCard
+            question={questions?.[0]}
+            callback={""}
+            userAnswer={undefined}
+            questionNr={number + 1}
+            totalQuestions={TotalQuestion}
+          />
+        )}
         <Button active={true} onClick={getQuestions}>
           Next Question
         </Button>
